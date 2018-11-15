@@ -9,9 +9,9 @@ resource "google_compute_instance" "default" {
 		}
 	}
 	network_interface {
-		network = "default"
+		network = "default" // Flat Network (Google)
 		access_config {
-			// Ephemeral IP
+			// Ephemeral IP (dynamic IP address)
 		}
 	}
 	metadata {
@@ -24,13 +24,15 @@ resource "google_compute_instance" "default" {
 	}
 	provisioner "remote-exec" {
 		inline = [
-			"sudo yum install -y java"
+			"sudo yum install -y java",
+			"sudo yum install -y git",
+			"sudo yum install -y wget"
 		]
 	}
 
 	provisioner "remote-exec" {
 		scripts = [
-			"scripts/test1"
+			"scripts/jenkins-script"
 		]
 	}
 }
