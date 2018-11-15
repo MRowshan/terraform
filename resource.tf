@@ -1,38 +1,39 @@
 resource "google_compute_instance" "default" {
-	name = "jenkins"
-	machine_type = "n1-standard-1"
-	zone = "europe-west2-c"
-	tags = ["jenkins"]
+	name = "${var.name}"
+	machine_type = "${var.machine_type}"
+	zone = "${var.zone}"
+	tags = ["${var.tags}"]
 	boot_disk {
 		initialize_params {
-			image = "centos-7"
+			image = "${var.image}"
 		}
 	}
 	network_interface {
-		network = "default" // Flat Network (Google)
+		network = "${var.network}" // Flat Network (Google)
 		access_config {
 			// Ephemeral IP (dynamic IP address)
 		}
 	}
 	metadata {
-		sshKeys = "terraform:${file("~/.ssh/id_rsa.pub")}"
+		sshKeys = "${var.ssh_user}:${file("${var.public_key}")}"
 	}
 	connection = {
 		type = "ssh"
-		user = "terraform"
-		private_key = "${file("~/.ssh/id_rsa")}"
+		user = "${var.ssh_user}"
+		private_key = "${file("${var.private_key}")}"
 	}
 	provisioner "remote-exec" {
 		inline = [
-			"sudo yum install -y java",
-			"sudo yum install -y git",
-			"sudo yum install -y wget"
+			#"sudo yum install java -y",
+			#"sudo yum install wget -y",
+			#"sudo yum install git -y"
+			"${var.install_packages[var.package_manager]} ${join(" ", var.packages)}"
 		]
 	}
 
 	provisioner "remote-exec" {
 		scripts = [
-			"scripts/jenkins-script"
+			"${var.scripts}"
 		]
 	}
 }
