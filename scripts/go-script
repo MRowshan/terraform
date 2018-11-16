@@ -1,0 +1,5 @@
+git clone https://github.com/mrowshan/go-http-server
+cd go-http-server/go/src/app
+chmod +x app
+sudo make make_user
+sudo make install
