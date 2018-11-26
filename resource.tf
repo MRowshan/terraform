@@ -1,8 +1,9 @@
 resource "google_compute_instance" "default" {
-	name = "${var.name}"
+	name = "${var.name}-${count.index+1}"
 	machine_type = "${var.machine_type}"
 	zone = "${var.zone}"
 	tags = ["${var.tags}"]
+	count = 4
 	boot_disk {
 		initialize_params {
 			image = "${var.image}"
