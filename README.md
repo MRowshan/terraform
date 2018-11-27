@@ -1,16 +1,16 @@
 # terraform
-Creates vm's in gcp
-Requires the gcp key to be put inside the home directory in the directory .gcpkey in a file named terraform_key.json
+Creates vm's in gcp  
+Requires the gcp key to be put inside the home directory in the directory .gcpkey in a file named terraform_key.json  
 `~/.gcpkey/terraform_key.json`
 
 ## makefile
-Used to run terraform commands with a makefile
-eg. `make` to initialise terraform
+Used to run terraform commands with a makefile  
+eg. `make` to initialise terraform  
 `make jenkins-apply` and `make jenkins-destroy` to create and delete jenkins vm's using the jenkins var file
 
 ## provider.tf
-Sets up connection with gcp network
-Requires the gcp key, project ID and region
+Sets up connection with gcp network  
+Requires the gcp key, project ID and region  
 
 ## default_variables.tf
 Contains default values that are assigned to the `resource.tf` file if no var-file is specified when `terraform apply` is run
