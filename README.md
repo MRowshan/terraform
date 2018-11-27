@@ -5,7 +5,8 @@ Requires the gcp key to be put inside the home directory in the directory .gcpke
 
 ## makefile
 Used to run terraform commands with a makefile  
-eg. `make` to initialise terraform  
+example:  
+`make` to initialise terraform  
 `make jenkins-apply` and `make jenkins-destroy` to create and delete jenkins vm's using the jenkins var file
 
 ## provider.tf
