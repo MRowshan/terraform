@@ -1,9 +1,9 @@
 resource "google_compute_instance" "default" {
-	name = "${var.name}-${count.index+1}"
+	name = "${var.name}"
 	machine_type = "${var.machine_type}"
 	zone = "${var.zone}"
 	tags = ["${var.tags}"]
-	count = 4
+#	count = 4
 	boot_disk {
 		initialize_params {
 			image = "${var.image}"
@@ -37,4 +37,10 @@ resource "google_compute_instance" "default" {
 			"${var.scripts}"
 		]
 	}
+}
+resource "google_compute_attached_disk" "default" {
+  disk = "terraform-jenkins"
+  instance = "${google_compute_instance.default.self_link}"
+  zone = "europe-west2-c"
+  device_name = "/var/lib/jenkins"
 }
